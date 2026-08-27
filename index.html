@@ -3,57 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graficación | ISC</title>
+    <meta name="description" content="Portafolio de prácticas de la materia de Graficación - ISC.">
+    <title>Portafolio Cyberpunk | Graficación ISC</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Portafolio web de Prácticas - Graficación</h1>
-        <p><strong>Alumno:</strong> [Tu Nombre Aquí] | <strong>Matrícula:</strong> [Tu numero de control]</p>
-        <p>Ingeniería en Sistemas Computacionales - 3er Semestre</p>
+    <!-- Fondo de Cuadrícula Dinámica y Contenedor de Partículas -->
+    <div class="cyber-grid"></div>
+    <div id="particles-container"></div>
+
+    <header class="hero">
+        <div class="hero-container">
+            <span class="badge" data-glitch="SYSTEM READY">SYSTEM READY • 2026</span>
+            <h1 class="glitch-title" data-text="Portafolio de Graficación">Portafolio de Graficación</h1>
+            <p class="author-info">
+                <strong>USER:</strong> <span class="cyber-text">[Tu Nombre Aquí]</span> &nbsp;|&nbsp; 
+                <strong>ID:</strong> <span class="cyber-text">[Tu número de control]</span>
+            </p>
+            <p class="subtext">// INGENIERÍA EN SISTEMAS COMPUTACIONALES</p>
+        </div>
     </header>
 
-    <main>
+    <main class="main-container">
+
+        <!-- Unidad 1 -->
         <section class="unidad-seccion">
-            <h2>Unidad 1: Introducción a los ambientes de graficación</h2>
+            <div class="section-header">
+                <h2><span>// 01.</span> Introducción a los ambientes de graficación</h2>
+                <span class="unit-tag">Fundamentos</span>
+            </div>
+            
             <div class="grid-actividades">
-                
-                <div class="tarjeta-actividad">
-                    <h3>Actividad 1.1: Primitivas</h3>
-                    <p>Modelado geométrico estático de un logotipo institucional mediante primitivas bidimensionales aplicadas en p5.js.</p>
-                    <a href="#" target="_blank" class="btn-enlace">Ver Proyecto 2D</a>
-                </div>
+                <article class="tarjeta-actividad" data-tilt>
+                    <div class="card-content">
+                        <h3>Actividad 1.1: Primitivas 2D</h3>
+                        <p>Modelado geométrico estático de un logotipo institucional mediante primitivas bidimensionales aplicadas en p5.js.</p>
+                    </div>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn-enlace">
+                        <span>EJECUTAR 2D</span>
+                    </a>
+                </article>
 
-                <div class="tarjeta-actividad">
-                    <h3>Actividad 1.2: Colores</h3>
-                    <p>Aplicación de los formatos para uso de colores en el lienzo.</p>
-                    <a href="#" target="_blank" class="btn-enlace">Ver Proyecto </a>
-                </div>
-
+                <article class="tarjeta-actividad" data-tilt>
+                    <div class="card-content">
+                        <h3>Actividad 1.2: Modelado de Color</h3>
+                        <p>Aplicación de los formatos RGB, HSB y hexadecimal para la manipulación dinámica de color en el lienzo.</p>
+                    </div>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn-enlace">
+                        <span>ACCEDER COLOR</span>
+                    </a>
+                </article>
             </div>
         </section>
 
+        <!-- Unidad 2 -->
         <section class="unidad-seccion">
-            <h2>Unidad 2: Graficación 2D</h2>
+            <div class="section-header">
+                <h2><span>// 02.</span> Graficación 2D</h2>
+                <span class="unit-tag">Transformaciones</span>
+            </div>
+
             <div class="grid-actividades">
-                
-                <div class="tarjeta-actividad">
-                    <h3>Actividad 2.1: Traslación</h3>
-                    <p>Implementación de transformaciones lineales (traslación y rotación) aislando la matriz gráfica mediante push() y pop().</p>
-                    <a href="#" target="_blank" class="btn-enlace">Ver Proyecto</a>
-                </div>
+                <article class="tarjeta-actividad" data-tilt>
+                    <div class="card-content">
+                        <h3>Actividad 2.1: Traslación y Matriz Gráfica</h3>
+                        <p>Implementación de transformaciones lineales aislando la matriz gráfica mediante <code>push()</code> y <code>pop()</code>.</p>
+                    </div>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn-enlace">
+                        <span>INICIAR MATRIX</span>
+                    </a>
+                </article>
 
-                <div class="tarjeta-actividad">
-                    <h3>Actividad 2.2: Mini-Proyecto </h3>
-                    <p>Replica de un videojuego clásico aplicando Programación Orientada a Objetos, lógica de colisiones y vectores.</p>
-                    <a href="#" target="_blank" class="btn-enlace">Jugar Ahora</a>
-                </div>
-
+                <article class="tarjeta-actividad highlight" data-tilt>
+                    <div class="card-content">
+                        <h3>Actividad 2.2: Mini-Proyecto 2D</h3>
+                        <p>Réplica de un videojuego clásico aplicando Programación Orientada a Objetos, lógica de colisiones y vectores.</p>
+                    </div>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn-enlace btn-primary">
+                        <span>JUGAR AH0RA</span>
+                    </a>
+                </article>
             </div>
         </section>
 
-        </main>
+    </main>
 
+    <footer class="footer">
+        <p>&copy; 2026 Graficación — SYSTEM STATUS: <span class="status-online">ONLINE</span></p>
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pintura Monte Fuji - HTML5 Canvas Completo</title>
+    
+    <!-- INICIO DE ESTILOS CSS -->
+    <style>
+        /* Configuración de la página web para centrar el lienzo en la pantalla */
+        body {
+            display: flex;                 /* Utiliza un contenedor flexible */
+            justify-content: center;       /* Centra horizontalmente el contenido */
+            align-items: center;           /* Centra verticalmente el contenido */
+            height: 100vh;                 /* Ocupa el 100% de la altura de la pantalla */
+            background-color: #000;        /* Color de fondo de la página (negro) */
+            margin: 0;                     /* Elimina los márgenes predeterminados del navegador */
+            overflow: hidden;              /* Oculta las barras de desplazamiento */
+        }
+
+        /* Propiedades visuales del lienzo (Canvas) */
+        canvas {
+            width: auto;                   /* Ajusta el ancho automáticamente */
+            height: 95vh;                  /* Altura adaptada al 95% de la pantalla */
+            max-width: 100%;               /* Ancho máximo responsivo */
+            box-shadow: 0 0 30px rgba(255,255,255,0.1); /* Sombra difuminada alrededor del lienzo */
+            border-radius: 4px;            /* Esquinas ligeramente redondeadas */
+        }
+    </style>
+    <!-- FIN DE ESTILOS CSS -->
+
+</head>
+<body>
+
+    <!-- CREACIÓN Y CONFIGURACIÓN DEL LIENZO (HTML5 Canvas) -->
+    <!-- Se define un lienzo con una resolución interna de 760 píxeles de ancho por 650 de alto -->
+    <canvas id="lienzoPintura" width="760" height="650"></canvas>
+
+    <!-- INICIO DE SCRIPT JAVASCRIPT (API NATIVA 2D) -->
+    <script>
+        // Obtenemos el elemento canvas del documento HTML
+        const canvas = document.getElementById('lienzoPintura');
+        
+        // Creamos el contexto de renderizado en 2D para poder dibujar sobre el lienzo
+        const ctx = canvas.getContext('2d');
+
+        // =========================================================================
+        // 1. SECCIÓN: CIELO (Primitiva geométrica: Rectángulo con gradiente de color)
+        // =========================================================================
+        
+        // Creamos un degradado lineal vertical para simular la tonalidad del cielo
+        let gradienteCielo = ctx.createLinearGradient(0, 0, 0, 350);
+        gradienteCielo.addColorStop(0, '#0a4e8f'); // Color formato HEX en la parte superior (Azul oscuro)
+        gradienteCielo.addColorStop(1, '#2a84c8'); // Color formato HEX en la parte inferior (Azul claro)
+        
+        // Aplicamos el color de relleno del gradiente
+        ctx.fillStyle = gradienteCielo;
+        
+        // Dibujamos un rectángulo que cubre la parte superior de la pantalla (Posición X:0, Y:0, Ancho: 760, Alto: 360)
+        ctx.fillRect(0, 0, canvas.width, 360);
+
+        // =========================================================================
+        // 2. SECCIÓN: MONTE FUJI (Primitiva geométrica: Trazos poligonales y rutas)
+        // =========================================================================
+        
+        // --- A. Base de la montaña (Triángulo principal morado) ---
+        ctx.beginPath();
+        ctx.moveTo(150, 360); // Posición inicial: Esquina inferior izquierda de la base de la montaña
+        ctx.lineTo(380, 160); // Posición superior: Cima exacta del Monte Fuji (Centro alineado)
+        ctx.lineTo(610, 360); // Posición final: Esquina inferior derecha de la base
+        ctx.closePath();
+        
+        ctx.fillStyle = '#533470'; // Aplicación de color sólido en formato HEX (Morado oscuro)
+        ctx.fill();                // Rellena la figura geométrica de la montaña
+
+        // --- B. Nieve en la cima (Alineada perfectamente al centro) ---
+        ctx.beginPath();
+        ctx.moveTo(380, 160); // Inicia exactamente en la misma cima de la montaña
+        
+        // Trazado de los picos irregulares del lado derecho de la nieve
+        ctx.lineTo(400, 185); 
+        ctx.lineTo(390, 195);
+        ctx.lineTo(425, 230); 
+        ctx.lineTo(410, 240);
+        ctx.lineTo(455, 280); 
+        ctx.lineTo(440, 290);
+        ctx.lineTo(490, 335); 
+        ctx.lineTo(475, 345);
+        ctx.lineTo(510, 360); // Conecta hacia el borde inferior derecho de la ladera
+        
+        // Línea base inferior que delimita la nieve con la base morada
+        ctx.lineTo(250, 360); 
+        
+        // Trazado de los picos irregulares del lado izquierdo de la nieve (subiendo hacia la cima)
+        ctx.lineTo(285, 325);
+        ctx.lineTo(270, 315);
+        ctx.lineTo(315, 270); 
+        ctx.lineTo(300, 260);
+        ctx.lineTo(345, 215); 
+        ctx.lineTo(335, 205);
+        ctx.lineTo(365, 175);
+        ctx.closePath();
+        
+        ctx.fillStyle = '#ffffff'; // Color blanco puro para simular la nieve
+        ctx.fill();                // Rellena la forma de la nieve dentro de la montaña
+
+        // =========================================================================
+        // 3. SECCIÓN: COLINAS Y PUEBLO (Primitivas: Rectángulos y bucles de repetición)
+        // =========================================================================
+        
+        // Capa de colinas verdes oscuras ubicadas en la falda de la montaña
+        ctx.fillStyle = '#144c21'; // Color verde oscuro formato HEX
+        ctx.fillRect(0, 345, canvas.width, 70); // Posición Y: 345, Altura: 70px
+
+        // Función modular para dibujar cada casa del pueblo controlando tamaño, posición y contorno
+        function dibujarCasa(x, y, w, h, colorPared, colorTecho) {
+            // Propiedad: Sombra suave bajo el techo usando transparencia (RGBA)
+            ctx.fillStyle = 'rgba(0,0,0,0.25)';
+            ctx.fillRect(x - 3, y - 10, w + 6, 14);
+            
+            // Propiedad: Tamaño y posición del techo de la casa
+            ctx.fillStyle = colorTecho;
+            ctx.fillRect(x - 4, y - 11, w + 8, 13);
+            
+            // Propiedad: Tamaño y posición de la pared principal de la casa
+            ctx.fillStyle = colorPared;
+            ctx.fillRect(x, y, w, h);
+            
+            // Ventanas de las casas (Generadas automáticamente en un bucle según el ancho y alto)
+            ctx.fillStyle = '#ffdb58'; // Color amarillo brillante para las ventanas iluminadas
+            let numVentanasW = Math.floor(w / 14);
+            let numVentanasH = Math.floor(h / 18);
+            for(let i = 1; i <= numVentanasW; i++) {
+                for(let j = 1; j <= numVentanasH; j++) {
+                    ctx.fillRect(x + (i * 12) - 6, y + (j * 16) - 8, 6, 7); // Posición calculada de cada ventana
+                }
+            }
+        }
+
+        // Llamadas a la función para ubicar las casas del pueblo en distintas posiciones (X, Y) con diversos tamaños
+        dibujarCasa(70, 375, 40, 40, '#c17d38', '#9c6130'); // Casa 1 (Izquierda, marrón)
+        dibujarCasa(120, 365, 55, 50, '#2d4c66', '#9c6130'); // Casa 2 (Azul oscuro)
+        dibujarCasa(190, 355, 65, 60, '#1f3e53', '#9c6130'); // Casa 3 (Azul mediano)
+        dibujarCasa(300, 345, 85, 70, '#53456e', '#9c6130'); // Casa 4 (Central, grande, morada)
+        dibujarCasa(480, 370, 75, 50, '#b89138', '#9c6130'); // Casa 5 (Derecha, ocre)
+        dibujarCasa(590, 380, 60, 40, '#364e6c', '#9c6130'); // Casa 6 (Extremo derecho, azul)
+
+        // =========================================================================
+        // 4. SECCIÓN: LAGO (Primitiva geométrica: Rectángulo con gradiente inferior)
+        // =========================================================================
+        
+        // Creamos un gradiente vertical para simular la profundidad del agua del lago
+        let gradienteLago = ctx.createLinearGradient(0, 420, 0, canvas.height);
+        gradienteLago.addColorStop(0, '#15609a'); // Azul brillante en la superficie del agua
+        gradienteLago.addColorStop(1, '#051f32'); // Azul muy oscuro en la profundidad inferior
+        
+        ctx.fillStyle = gradienteLago;
+        
+        // Dibujamos el rectángulo del lago ocupando toda la parte inferior (Posición Y: 420 hasta el fondo)
+        ctx.fillRect(0, 420, canvas.width, canvas.height - 420);
+
+        // =========================================================================
+        // 5. SECCIÓN: ÁRBOL DE CEREZO Y FLORES (Contornos, Posición y Transparencia)
+        // =========================================================================
+        
+        // --- A. Ramas principales del cerezo ---
+        ctx.strokeStyle = '#1c120a'; // Color de contorno muy oscuro (Marrón casi negro)
+        
+        // Rama principal superior (Propiedad de contorno: Grosor de 15 píxeles)
+        ctx.lineWidth = 15; 
+        ctx.beginPath();
+        ctx.moveTo(780, 30); // Posición inicial de la rama en el borde superior derecho
+        ctx.bezierCurveTo(700, 100, 650, 250, 630, 420); // Curva de Bezier para darle forma orgánica
+        ctx.stroke(); // Dibuja el contorno de la rama
+
+        // Rama secundaria del árbol (Propiedad de contorno: Grosor de 8 píxeles)
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(750, 100);
+        ctx.bezierCurveTo(650, 180, 620, 250, 590, 380);
+        ctx.stroke();
+
+        // --- B. Flores de cerezo (Primitiva geométrica: Círculos con transparencia y tamaño variable) ---
+        function dibujarRacimoFlores(x, y, radioMax, densidad) {
+            for (let i = 0; i < densidad; i++) {
+                let angulo = Math.random() * Math.PI * 2;
+                let radio = Math.pow(Math.random(), 2) * radioMax; // Distribución radial concentrada
+                
+                // Posición (X, Y) calculada de cada flor individual de manera aleatoria controlada
+                let px = x + Math.cos(angulo) * radio;
+                let py = y + Math.sin(angulo) * radio;
+                
+                // Propiedad: Tamaño aleatorio pequeño para simular pétalos (radio entre 3 y 7 px)
+                let tamano = Math.random() * 4 + 3;
+                
+                // Propiedad: Transparencia y Color variable usando formato RGBA
+                let tonoRosa = `rgba(255, ${160 + Math.random() * 40}, ${190 + Math.random() * 50}, ${Math.random() * 0.6 + 0.4})`;
+                ctx.fillStyle = tonoRosa;
+                
+                // Primitiva de círculo (Arc) para cada pétalo/flor
+                ctx.beginPath();
+                ctx.arc(px, py, tamano, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Generación de múltiples racimos densos cubriendo la esquina superior y derecha de la pantalla
+        dibujarRacimoFlores(720, 150, 250, 1500); // Racimo masivo principal derecho
+        dibujarRacimoFlores(630, 380, 220, 1200); // Racimo central sobre el lago
+        dibujarRacimoFlores(760, 450, 180, 800);  // Racimo inferior derecho
+        dibujarRacimoFlores(690, 100, 150, 600);  // Racimo superior central
+
+        // =========================================================================
+        // 6. SECCIÓN: DETALLES FINALES Y FIRMA DEL ARTISTA
+        // =========================================================================
+        
+        // Propiedades de estilo de texto, color y transparencia para la firma
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; // Color blanco con 60% de transparencia (Alfa)
+        ctx.font = 'italic 16px Georgia, serif';      // Estilo, tamaño y tipografía del texto
+        ctx.fillText('AC', canvas.width - 60, canvas.height - 15); // Posición del texto en la esquina inferior derecha
+
+    </script>
+    <!-- FIN DE SCRIPT JAVASCRIPT -->
+
+</body>
+</html>
